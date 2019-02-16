@@ -10,7 +10,13 @@
 
 # production
 /build
-.idea
+.idea/deployment.xml
+.idea/editor.iml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
 # misc
 .DS_Store
 .env.local
@@ -23,3 +29,6 @@ yarn-debug.log*
 yarn-error.log*
 .env
 yarn.lock
+sh.exe.stackdump
+
+

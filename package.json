@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@firebase/app-types": "0.x",
+    "@firebase/util": "0.x",
     "immutable": "^4.0.0-rc.12",
     "node-sass": "^4.11.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
-    "slate-react": "^0.21.16",
-    "universal-cookie": "^3.0.7"
+    "react-select": "^2.4.0",
+    "react-strap": "^0.0.1",
+    "reactackle": "^1.1.3",
+    "slate-react": "^0.21.16"
   },
   "devDependencies": {
     "firebase": "^5.8.2"

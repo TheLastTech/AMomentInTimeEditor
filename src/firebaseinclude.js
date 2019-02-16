@@ -1,10 +1,10 @@
 import FirebaseContext from './firebasecontext';
-import Firebase from './firebaseauth';
+import Firebase from './FireHelper';
 import React from "react";
 
 let withFirebase = Component => props => (
 	<FirebaseContext.Consumer>
-		{firebase => <Component {...props} firebase={firebase}/>}
+		{firebase => <Component {...props} FireHelper={firebase}/>}
 	</FirebaseContext.Consumer>
 );
 

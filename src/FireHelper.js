@@ -3,7 +3,7 @@ import app from 'firebase/app'
 import {auth} from 'firebase'
 
 const cookies = new Cookies();
-export default class Firebase {
+export default class FireHelper {
 	constructor() {
 		console.log(process.env)
 		app.initializeApp({
@@ -15,6 +15,12 @@ export default class Firebase {
 			messagingSenderId: process.env.REACT_APP_messagingSenderId
 
 		});
+
+		this.FireStore = app.firestore();
+		this.FireStore.settings({
+			timestampsInSnapshots: true
+		});
+
 
 		this.provider = new auth.GoogleAuthProvider();
 		this.auth = app.auth();
@@ -42,7 +48,7 @@ export default class Firebase {
 
 	}
 	StoredSignInSuccess(CurrentUser) {
-
+		console.log("logged in",CurrentUser)
 		this.User = CurrentUser;
 
 	}

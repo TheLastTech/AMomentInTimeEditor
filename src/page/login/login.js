@@ -1,17 +1,24 @@
 import React, {Component} from 'react';
 import './login.scss'
+import {Redirect} from "react-router-dom";
 
 export default class login extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+
 	}
 
+
+
 	render() {
+		if (this.props.User) {
+			return <Redirect to='/home'></Redirect>
+
+		}
 		return <div className="component-login">
 			<span>Welcome</span>
 			<div onClick={() => {
-				this.props.firebase
+				this.props.FireHelper
 					.GoogleSignin()
 					.then(authUser => {
 						console.log(authUser)

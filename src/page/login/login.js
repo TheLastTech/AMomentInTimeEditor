@@ -21,7 +21,7 @@ export default class login extends Component {
 				this.props.FireHelper
 					.GoogleSignin()
 					.then(authUser => {
-						console.log(authUser)
+
 						this.props.history.push('/home');
 					})
 					.catch(error => {

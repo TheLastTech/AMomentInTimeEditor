@@ -1,8 +1,6 @@
-import Cookies from 'universal-cookie'
 import app from 'firebase/app'
 import {auth} from 'firebase'
 
-const cookies = new Cookies();
 export default class FireHelper {
 	constructor() {
 		console.log(process.env)
@@ -17,9 +15,6 @@ export default class FireHelper {
 		});
 
 		this.FireStore = app.firestore();
-		this.FireStore.settings({
-			timestampsInSnapshots: true
-		});
 
 
 		this.provider = new auth.GoogleAuthProvider();
@@ -32,11 +27,19 @@ export default class FireHelper {
 
 
 		console.log(Creds);
-		this.auth.signInWithCredential(auth.GoogleAuthProvider.credential(Creds.idToken, Creds.accessToken)).then(this.StoredSignInSuccess.bind(this)).catch((e) => {
-			console.log(e);
-		})
+		this.DoPreviousPersonSignin(Creds);
 
 
+	}
+
+	async DoPreviousPersonSignin(Creds) {
+		try {
+			this.auth.signInWithCredential(auth.GoogleAuthProvider.credential(Creds.idToken, Creds.accessToken)).then(this.StoredSignInSuccess.bind(this)).catch((e) => {
+				console.log(e);
+			})
+		} catch (e) {
+			localStorage.removeItem('muhgoogle');
+		}
 	}
 
 	doSignOut = () => this.auth.signOut();
@@ -47,11 +50,13 @@ export default class FireHelper {
 		return this.SignInSuccess(SigninResult);
 
 	}
+
 	StoredSignInSuccess(CurrentUser) {
-		console.log("logged in",CurrentUser)
+		console.log("logged in", CurrentUser)
 		this.User = CurrentUser;
 
 	}
+
 	SignInSuccess(SigninResult) {
 		console.log(SigninResult);
 		this.Token = SigninResult.credential.accessToken;

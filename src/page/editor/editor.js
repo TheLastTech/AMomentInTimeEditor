@@ -24,16 +24,8 @@ export default class editor extends Component {
 		let Room = Rooms.doc(this.state.RoomName);
 		let RoomResult = await Room.get();
 		if (!RoomResult.exists) {
-			await Room.set({
-				Name: this.state.RoomName,
-				TopText: '',
-				ImageUrl: '',
-				Exits: [],
-				Npcs: [],
-				GrantsRole: [],
-				Interactables: [],
-			})
-			RoomResult = await Room.get();
+			this.props.history.push('/');
+			return;
 		}
 		let RoomData = RoomResult.data();
 		let RoomsDoc = await Rooms.get()

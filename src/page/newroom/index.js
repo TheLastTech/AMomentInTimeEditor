@@ -1,2 +1,3 @@
 import newroom from "./newroom"
-export default newroom;
+import {withFirebase} from '../../firebaseinclude';
+export default withFirebase(newroom);

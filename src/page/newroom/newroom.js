@@ -1,28 +1,44 @@
 import React, {Component} from 'react';
 import './newroom.scss'
-import {Redirect} from "react-router-dom";
 
 export default class newroom extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {RoomName: ' '};
+		this.state = {RoomName: ' ', Error: ''};
 	}
 
 	render() {
-		if (this.state.Redirect) {
-			return <Redirect to={this.state.Redirect}/>
-		}
+
+
 		return <div className="component-newroom">Give the Room a name:
 			<input type='text' value={this.state.RoomName} onChange={(e) => {
-				this.setState({RoomName: e.target.value});
+				this.setState({RoomName: e.target.value.trim()});
 			}
 			}/>
 			<button onClick={this.CreateRoom.bind(this)}>Create</button>
+			<div className='alert-danger'>{this.state.Error}</div>
 		</div>;
 	}
 
-	CreateRoom(e) {
-		this.setState({Redirect: `/Editor/${this.state.RoomName}`})
+	async CreateRoom(e) {
+		let Rooms = this.props.FireHelper.FireStore.collection("Rooms");
+		let Room = Rooms.doc(this.state.RoomName);
+		let RoomResult = await Room.get();
+		if (RoomResult.exists) {
+			this.setState({Error: 'Room already exists'})
+			return;
+		}
+		await Room.set({
+			Name: this.state.RoomName,
+			TopText: '',
+			ImageUrl: '',
+			Exits: [],
+			Npcs: [],
+			GrantsRole: [],
+			Interactables: [],
+		})
+		this.props.history.push(`/Editor/${this.state.RoomName}`)
+
 	}
 }
 // export default connect(
